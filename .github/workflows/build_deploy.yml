@@ -1,0 +1,42 @@
+# workflow의 이름
+name: build_deploy
+
+# 특정한 이벤트(조건)에 workflow를 실행시키는 트리거
+# master 브런치에 push할 때 동작
+on:
+  push:
+    branches: [ master ]
+
+# 하나 이상의 실행할 작업(Job)과 그 작업(Job)을 실행할 환경
+jobs:
+  # 빌드와 배포를 할 작업인 job
+  build_and_deploy:
+    
+    # 작업을 시스템 유형 (ubuntu)
+    runs-on: ubuntu-latest
+    
+    # Job이 포함하고있는 일련의 업무들(steps) 
+    steps:
+    # 워크플로가 쓰인 프로젝트의 github 저장소의 $GITHUB_WORKSPACE에 접근할 수 있게 해줌
+    # https://github.com/actions/checkout 
+    - name: Checkout github workspace
+      uses: actions/checkout@v2
+    
+    # Java파일 사용을 위한 Java 환경을 다운로드
+    # https://github.com/actions/setup-java
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        java-package: jdk 
+        architecture: x64
+
+    # gradlew 실행권한 주기
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      shell: bash
+    
+    # 빌드하기
+    - name: Build with Gradle
+      run: ./gradlew build
+      shell: bash
