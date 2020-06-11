@@ -40,3 +40,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       shell: bash
+    # 테스트
+    - name: test
+      run: ls -la
