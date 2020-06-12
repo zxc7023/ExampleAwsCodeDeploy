@@ -38,7 +38,7 @@ jobs:
     
     # 빌드하기
     - name: Build with Gradle
-      run: ./gradlew ExampleAwsCodeDeploy:build
+      run: ./gradlew :ExampleAwsCodeDeploy:build
       shell: bash
     
     # 테스트
