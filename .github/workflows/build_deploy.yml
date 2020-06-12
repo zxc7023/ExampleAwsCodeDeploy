@@ -58,5 +58,4 @@ jobs:
       with:
           aws-access-key-id: $
           aws-secret-access-key: $
-          aws-region: $
-      
+          aws-region: ap-northeast-2
