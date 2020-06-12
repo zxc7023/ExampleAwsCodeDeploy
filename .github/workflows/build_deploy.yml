@@ -38,9 +38,12 @@ jobs:
     
     # 빌드하기
     - name: Build with Gradle
-      run: ./gradlew :ExampleAwsCodeDeploy:build
+      run: ./gradlew build
       shell: bash
     
-    # 테스트
-    - name: test
-      run: ls -la
+    # zip으로 압축
+    # 디렉터리를 현재 경로에 build.zip 이름으로 압축
+ 	- name: Compress the artifact
+      run: zip -r ./buid.zip .
+      shell: bash
+      
