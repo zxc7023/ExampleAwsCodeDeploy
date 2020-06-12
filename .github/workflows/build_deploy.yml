@@ -51,4 +51,12 @@ jobs:
     - name: ls 
       run: ls -la ./build
       shell: bash
+    
+    # aws 인증
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+          aws-access-key-id: $
+          aws-secret-access-key: $
+          aws-region: $
       
