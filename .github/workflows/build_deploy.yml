@@ -4,7 +4,7 @@ name: build_deploy
 # 환경 변수 $변수명 으로 사용
 # ex) $PROJECT_NAME
 env: 
-  PROJECT_NAME : ExampleAwsCodeDeplpy
+  PROJECT_NAME : ExampleAwsCodeDeploy
   BUCKET_NAME : webservice-deploy-storage
   
 # 특정한 이벤트(조건)에 workflow를 실행시키는 트리거
