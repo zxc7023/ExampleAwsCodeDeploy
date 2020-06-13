@@ -1,6 +1,12 @@
 # workflow의 이름
 name: build_deploy
 
+# 환경 변수 $변수명 으로 사용
+# ex) $PROJECT_NAME
+env: 
+  PROJECT_NAME : ExampleAwsCodeDeplpy
+  BUCKET_NAME : webservice-deploy-storage
+  
 # 특정한 이벤트(조건)에 workflow를 실행시키는 트리거
 # master 브런치에 push할 때 동작
 on:
@@ -42,8 +48,9 @@ jobs:
       shell: bash
     
     # zip으로 압축
-    # 디렉터리를 현재 경로에 build.zip 이름으로 압축
-    - name: Compress the artifact
+    # 현재 directory를 현재 경로에 build.zip 이름으로 압축
+    # -r 하위경로까지 모두다라는 옵션 
+    - name: Compress the result into zip file
       run: zip -r ./build.zip .
       shell: bash
     
@@ -52,7 +59,8 @@ jobs:
       run: ls -la ./build
       shell: bash
     
-    # aws 인증
+    # aws 인증서비스
+    # github repository에서 Setting에서 사용할 암호화된 변수
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -60,6 +68,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION}}
     
-    # S3 업로드
+    # Upload to S3 stroage
     - name: Upload to S3
-      run: aws s3 cp build.zip s3://webservice-deploy-storage/ExampleAwsCodeDeploy/ExampleAwsCodeDeploy-$GITHUB_SHA.zip --region ap-northeast-2        
+      run: aws s3 cp build.zip s3://$BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip --region ap-northeast-2        
+    
+    # AWS CodeDeploy 실행 
+    - name: Code Deploy
+      run: aws deploy create-deployment --application-name WebserviceCodeDeploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name WebserviceCodeDeployDeployGroup --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
