@@ -54,11 +54,6 @@ jobs:
       run: zip -r ./build.zip .
       shell: bash
     
-    # 결과 확인
-    - name: ls 
-      run: ls -la ./build
-      shell: bash
-    
     # aws 인증서비스
     # github repository에서 Setting에서 사용할 암호화된 변수
     - name: Configure AWS credentials
