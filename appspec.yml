@@ -2,9 +2,9 @@ version: 0.0
 os: linux
 files:
   - source:  /
-    destination: /home/ubuntu/applications/ExampleAwsCodeDeploy/build
+    destination: /home/ubuntu/applications/ExampleAwsCodeDeploy
 #permissions:
-#  - object: /home/ubuntu/applications/ExampleAwsCodeDeploy/build
+#  - object: /home/ubuntu/applications/ExampleAwsCodeDeploy
 #    owner: ubuntu
 #    group: ubuntu
 #    mode: 755
