@@ -37,6 +37,11 @@ jobs:
         java-package: jdk 
         architecture: x64
 
+    # 결과 확인
+    - name: ls 
+      run: ls -la ./build
+      shell: bash
+      
     # gradlew 실행권한 주기
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
