@@ -39,7 +39,7 @@ jobs:
 
     # 결과 확인
     - name: ls 
-      run: ls -la ./build
+      run: ls -la
       shell: bash
       
     # gradlew 실행권한 주기
